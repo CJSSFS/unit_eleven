@@ -1,6 +1,6 @@
 import pygame, sys
 from pygame.locals import *
-
+import brick
 
 def main():
     # Constants that will be used in the program
@@ -32,6 +32,15 @@ def main():
     # the screen (BRICK_Y_OFFSET)
     pygame.init()
     mainSurface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
+    x = 0
+    y = BRICK_Y_OFFSET
+    my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, colors[1])
+    my_brick.rect.x = x
+    my_brick.rect.y = y
+    mainSurface.blit(my_brick.image, my_brick.rect)
+
+    for b in my_brick(9):
+
 
     while True:
         for event in pygame.event.get():
@@ -39,5 +48,5 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-
+        pygame.display.update()
 main()
