@@ -2,6 +2,7 @@ import pygame, sys
 from pygame.locals import *
 import brick
 
+
 def main():
     # Constants that will be used in the program
     APPLICATION_WIDTH = 400
@@ -16,6 +17,9 @@ def main():
     PADDLE_HEIGHT = 10
     RADIUS_OF_BALL = 10
     NUM_TURNS = 3
+    number_bricks = 9
+    HEIGHT = 20
+    SPACE = 5
 
     # Sets up the colors
     RED = (255, 0, 0)
@@ -30,17 +34,30 @@ def main():
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
+    for c in range(5):
+        x = (WIDTH + SPACE) * c
+        color = colors[c]
+
     pygame.init()
-    mainSurface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
+    main_surface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
     x = 0
     y = BRICK_Y_OFFSET
     my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, colors[1])
     my_brick.rect.x = x
     my_brick.rect.y = y
-    mainSurface.blit(my_brick.image, my_brick.rect)
+    main_surface.blit(my_brick.image, my_brick.rect)
 
-    for b in my_brick(9):
+    WIDTH = (500 - (number_bricks * SPACE)) / number_bricks
 
+    for c in range(5):
+        x = (WIDTH + SPACE) * c
+        colors = colors[c]
+
+    for b in range(number_bricks):
+        my_brick = brick.Brick(WIDTH, HEIGHT, colors, main_surface)
+        my_brick.draw_brick(x, y)
+        x += WIDTH + SPACE
+    number_bricks = number_bricks
 
     while True:
         for event in pygame.event.get():
@@ -48,5 +65,7 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-        pygame.display.update()
+            pygame.display.update()
+
+
 main()
