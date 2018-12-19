@@ -1,12 +1,13 @@
 import pygame, sys
 from pygame.locals import *
 import block
+import random
 
 pygame.init()
 X_SPEED = 3
 Y_SPEED = 3
 WINDOW_WIDTH = 500
-WINDOW_HEIGHT = 500
+WINDOW_HEIGHT = 400
 main_window = pygame.display.set_mode((500, 500), 32, 0)
 pygame.display.set_caption("Animation")
 
@@ -15,14 +16,12 @@ WIDTH = 25
 HEIGHT = 25
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
-
-
-my_block = block.Block(main_window, WIDTH, HEIGHT, BLUE)
-new_block = block.Block(main_window, WIDTH, HEIGHT, GREEN)
-my_block.rect.x = 10
-my_block.rect.y = 10
-new_block.rect.x = WINDOW_WIDTH - 35
-new_block.rect.y = WINDOW_HEIGHT - 35
+group = pygame.sprite.Group()
+for x in range(10):
+    my_block = block.Block(main_window, WIDTH, HEIGHT, BLUE)
+    group.add(my_block)
+    my_block.rect.x = random.randint(WIDTH, WINDOW_WIDTH-WIDTH)
+    my_block.rect.y = random.randint(WIDTH, WINDOW_WIDTH-WIDTH)
 
 
 while True:
@@ -32,10 +31,13 @@ while True:
             sys.exit()
 
     main_window.fill(WHITE)
-    my_block.move()
-    new_block.move()
-    main_window.blit(my_block.image, my_block.rect)
-    main_window.blit(new_block.image, new_block.rect)
+    for a_brick in group:
+        a_brick.move()
+        group.remove(a_brick)
+        a_brick.collide(group)
+        group.add(a_brick)
+        main_window.blit(a_brick.image, a_brick.rect)
+
     pygame.display.update()
 
 
