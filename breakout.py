@@ -1,6 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 import brick
+import paddle
 
 
 def main():
@@ -11,13 +12,12 @@ def main():
     BRICKS_PER_ROW = 10
     BRICK_SEP = 4  # The space between each brick
     BRICK_Y_OFFSET = 70
-    BRICK_WIDTH =  (APPLICATION_WIDTH - (BRICKS_PER_ROW -1) * BRICK_SEP) / BRICKS_PER_ROW
+    BRICK_WIDTH = (APPLICATION_WIDTH - (BRICKS_PER_ROW -1) * BRICK_SEP) / BRICKS_PER_ROW
     BRICK_HEIGHT = 8
     PADDLE_WIDTH = 60
     PADDLE_HEIGHT = 10
     RADIUS_OF_BALL = 10
     NUM_TURNS = 3
-    number_bricks = 9
     HEIGHT = 20
     SPACE = 5
 
@@ -30,42 +30,38 @@ def main():
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
-    colors = [RED, ORANGE, YELLOW, GREEN, CYAN, BLACK, WHITE]
+    colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
-    for c in range(5):
-        x = (WIDTH + SPACE) * c
-        color = colors[c]
 
     pygame.init()
+
+    h = PADDLE_HEIGHT
+    w = PADDLE_WIDTH 
     main_surface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
     x = 0
     y = BRICK_Y_OFFSET
-    my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, colors[1])
-    my_brick.rect.x = x
-    my_brick.rect.y = y
-    main_surface.blit(my_brick.image, my_brick.rect)
+    for color in colors:
+        for c in range(2):
+            for b in range(BRICKS_PER_ROW):
+                my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, color)
+                my_brick.rect.x = x
+                my_brick.rect.y = y
+                main_surface.blit(my_brick.image, my_brick.rect)
+                x = x + BRICK_WIDTH + BRICK_SEP
+            y = y + BRICK_HEIGHT + BRICK_SEP
+            x = 0
 
-    WIDTH = (500 - (number_bricks * SPACE)) / number_bricks
-
-    for c in range(5):
-        x = (WIDTH + SPACE) * c
-        colors = colors[c]
-
-    for b in range(number_bricks):
-        my_brick = brick.Brick(WIDTH, HEIGHT, colors, main_surface)
-        my_brick.draw_brick(x, y)
-        x += WIDTH + SPACE
-    number_bricks = number_bricks
+    WIDTH = (500 - (BRICKS_PER_ROW * SPACE)) / BRICKS_PER_ROW
 
     while True:
         for event in pygame.event.get():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
-
-            pygame.display.update()
+        pygame.display.update()
+pygame.
 
 
 main()
