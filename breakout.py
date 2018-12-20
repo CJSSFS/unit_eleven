@@ -36,16 +36,21 @@ def main():
     # the screen (BRICK_Y_OFFSET)
 
     pygame.init()
-
-    h = PADDLE_HEIGHT
-    w = PADDLE_WIDTH 
     main_surface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
+    h = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
+    w = APPLICATION_WIDTH/2
+    board = paddle.Paddle(main_surface, WHITE, PADDLE_WIDTH, PADDLE_HEIGHT)
+    board.rect.x = w
+    board.rect.y = h
+    main_surface.blit(board.image, board.rect)
+    brick_group = pygame.sprite.Group()
     x = 0
     y = BRICK_Y_OFFSET
     for color in colors:
         for c in range(2):
             for b in range(BRICKS_PER_ROW):
                 my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, color)
+                brick_group.add(my_brick)
                 my_brick.rect.x = x
                 my_brick.rect.y = y
                 main_surface.blit(my_brick.image, my_brick.rect)
@@ -60,8 +65,12 @@ def main():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
+        main_surface.fill(BLACK)
+        for a in brick_group:
+            main_surface.blit(a.image, a.rect)
+        board.move()
+        main_surface.blit(board.image, board.rect)
         pygame.display.update()
-pygame.
 
 
 main()
