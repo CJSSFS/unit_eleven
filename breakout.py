@@ -2,6 +2,7 @@ import pygame, sys
 from pygame.locals import *
 import brick
 import paddle
+import ball
 
 
 def main():
@@ -34,7 +35,6 @@ def main():
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
-
     pygame.init()
     main_surface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
     h = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
@@ -43,6 +43,10 @@ def main():
     board.rect.x = w
     board.rect.y = h
     main_surface.blit(board.image, board.rect)
+    cj = ball.Ball(ORANGE, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
+    cj.rect.x = APPLICATION_WIDTH/2
+    cj.rect.y = APPLICATION_HEIGHT/2
+    main_surface.blit(cj.image, cj.rect)
     brick_group = pygame.sprite.Group()
     x = 0
     y = BRICK_Y_OFFSET
@@ -70,7 +74,13 @@ def main():
             main_surface.blit(a.image, a.rect)
         board.move()
         main_surface.blit(board.image, board.rect)
+        cj.move()
+        cj.collide(brick_group)
+        main_surface.blit(cj.image, cj.rect)
+
         pygame.display.update()
+
+    main_surface.blit
 
 
 main()
