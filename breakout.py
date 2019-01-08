@@ -39,10 +39,12 @@ def main():
     main_surface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
     h = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
     w = APPLICATION_WIDTH/2
+    paddle_group = pygame.sprite.Group()
     board = paddle.Paddle(main_surface, WHITE, PADDLE_WIDTH, PADDLE_HEIGHT)
     board.rect.x = w
     board.rect.y = h
     main_surface.blit(board.image, board.rect)
+    paddle_group.add(board)
     cj = ball.Ball(ORANGE, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
     cj.rect.x = APPLICATION_WIDTH/2
     cj.rect.y = APPLICATION_HEIGHT/2
@@ -74,13 +76,20 @@ def main():
             main_surface.blit(a.image, a.rect)
         board.move()
         main_surface.blit(board.image, board.rect)
-        cj.move()
         cj.collide(brick_group)
+        cj.move()
+        cj.paddle_collide(paddle_group)
         main_surface.blit(cj.image, cj.rect)
 
         pygame.display.update()
-
-    main_surface.blit
+        if cj.rect.bottom >= APPLICATION_HEIGHT:
+            NUM_TURNS -= 1
+        if NUM_TURNS == 0:
+            pygame.quit()
+            sys.exit()
+        if len(brick_group) == 0:
+            pygame.quit()
+            sys.exit()
 
 
 main()
