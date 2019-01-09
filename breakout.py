@@ -14,7 +14,7 @@ def main():
     BRICK_SEP = 4  # The space between each brick
     BRICK_Y_OFFSET = 70
     BRICK_WIDTH = (APPLICATION_WIDTH - (BRICKS_PER_ROW -1) * BRICK_SEP) / BRICKS_PER_ROW
-    BRICK_HEIGHT = 8
+    BRICK_HEIGHT = 16
     PADDLE_WIDTH = 60
     PADDLE_HEIGHT = 10
     RADIUS_OF_BALL = 10
@@ -45,7 +45,7 @@ def main():
     board.rect.y = h
     main_surface.blit(board.image, board.rect)
     paddle_group.add(board)
-    cj = ball.Ball(ORANGE, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
+    cj = ball.Ball(WHITE, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
     cj.rect.x = APPLICATION_WIDTH/2
     cj.rect.y = APPLICATION_HEIGHT/2
     main_surface.blit(cj.image, cj.rect)
