@@ -40,7 +40,7 @@ def main():
     h = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
     w = APPLICATION_WIDTH/2
     paddle_group = pygame.sprite.Group()
-    board = paddle.Paddle(main_surface, WHITE, PADDLE_WIDTH, PADDLE_HEIGHT)
+    board = paddle.Paddle(main_surface, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
     board.rect.x = w
     board.rect.y = h
     main_surface.blit(board.image, board.rect)
@@ -71,7 +71,7 @@ def main():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
-        main_surface.fill(BLACK)
+        main_surface.fill(WHITE)
         for a in brick_group:
             main_surface.blit(a.image, a.rect)
         board.move()
