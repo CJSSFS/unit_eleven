@@ -23,7 +23,7 @@ def main():
     SPACE = 5
 
     # Sets up the colors
-    RED = (255, 0, 0)
+    RED = (250, 0, 255)
     ORANGE = (255, 165, 0)
     YELLOW = (255, 255, 0)
     GREEN =(0, 255, 0)
@@ -31,7 +31,8 @@ def main():
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
-    colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
+    colors = [ORANGE, RED, YELLOW, GREEN, CYAN]
+    files = ["5 ball.png", "4 ball.png", "3 ball.png", "2 ball.png", "1 ball.png"]
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
@@ -51,7 +52,7 @@ def main():
     main_surface.blit(cj.image, cj.rect)
     brick_group = pygame.sprite.Group()
     x = 0
-    y = BRICK_Y_OFFSET
+    y = 5
     for color in colors:
         for c in range(2):
             for b in range(BRICKS_PER_ROW):
