@@ -1,6 +1,6 @@
 import pygame, sys
 from pygame.locals import *
-import brick
+import block
 import paddle
 import ball
 
@@ -10,8 +10,8 @@ def main():
     APPLICATION_WIDTH = 400
     APPLICATION_HEIGHT = 600
     PADDLE_Y_OFFSET = 30
-    BRICKS_PER_ROW = 10
-    BRICK_SEP = 4  # The space between each brick
+    BRICKS_PER_ROW = 8
+    BRICK_SEP =10  # The space between each brick
     BRICK_Y_OFFSET = 70
     BRICK_WIDTH = (APPLICATION_WIDTH - (BRICKS_PER_ROW -1) * BRICK_SEP) / BRICKS_PER_ROW
     BRICK_HEIGHT = 16
@@ -53,10 +53,10 @@ def main():
     brick_group = pygame.sprite.Group()
     x = 0
     y = 5
-    for color in colors:
+    for file in files:
         for c in range(2):
             for b in range(BRICKS_PER_ROW):
-                my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, color)
+                my_brick = block.Block(BRICK_WIDTH, BRICK_HEIGHT, file)
                 brick_group.add(my_brick)
                 my_brick.rect.x = x
                 my_brick.rect.y = y
