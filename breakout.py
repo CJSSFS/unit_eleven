@@ -11,7 +11,7 @@ def main():
     APPLICATION_HEIGHT = 600
     PADDLE_Y_OFFSET = 30
     BRICKS_PER_ROW = 8
-    BRICK_SEP =10  # The space between each brick
+    BRICK_SEP = 15  # The space between each brick
     BRICK_Y_OFFSET = 70
     BRICK_WIDTH = (APPLICATION_WIDTH - (BRICKS_PER_ROW -1) * BRICK_SEP) / BRICKS_PER_ROW
     BRICK_HEIGHT = 16
@@ -32,7 +32,7 @@ def main():
     WHITE = (255, 255, 255)
 
     colors = [ORANGE, RED, YELLOW, GREEN, CYAN]
-    files = ["5 ball.png", "4 ball.png", "3 ball.png", "2 ball.png", "1 ball.png"]
+    files = ["ball 5.png", "ball.png", "ball 3.png", "ball 2.png", "ball 1.png"]
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
