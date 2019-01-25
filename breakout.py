@@ -1,3 +1,7 @@
+# Chad Scott
+# 1/25/19
+# This is a ball break game in the style of a pool game
+
 import pygame, sys
 from pygame.locals import *
 import block
@@ -17,7 +21,7 @@ def main():
     BRICK_HEIGHT = 16
     PADDLE_WIDTH = 60
     PADDLE_HEIGHT = 10
-    RADIUS_OF_BALL = 10
+    RADIUS_OF_BALL = 7
     NUM_TURNS = 3
     HEIGHT = 20
     SPACE = 5
@@ -32,12 +36,17 @@ def main():
     WHITE = (255, 255, 255)
 
     colors = [ORANGE, RED, YELLOW, GREEN, CYAN]
-    files = ["ball 5.png", "ball.png", "ball 3.png", "ball 2.png", "ball 1.png"]
+    files = ["five.png", "four.png", "three.png", "two.png", "one.png"]
+    # files is what pygame pulls the images from and puts them on the screen
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
     pygame.init()
     main_surface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
+    background = pygame.image.load("Pool Table.png")
+    background_rect = background.get_rect()
+    background_rect.x = 0
+    background_rect.y = 0
     h = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
     w = APPLICATION_WIDTH/2
     paddle_group = pygame.sprite.Group()
@@ -48,11 +57,12 @@ def main():
     paddle_group.add(board)
     cj = ball.Ball(WHITE, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
     cj.rect.x = APPLICATION_WIDTH/2
-    cj.rect.y = APPLICATION_HEIGHT/2
+    cj.rect.y = APPLICATION_HEIGHT - 50
     main_surface.blit(cj.image, cj.rect)
     brick_group = pygame.sprite.Group()
     x = 0
     y = 5
+    # This adds two bricks per color per ball so for example there would be two balls with the number 1 on it
     for file in files:
         for c in range(2):
             for b in range(BRICKS_PER_ROW):
@@ -66,13 +76,14 @@ def main():
             x = 0
 
     WIDTH = (500 - (BRICKS_PER_ROW * SPACE)) / BRICKS_PER_ROW
-
+    lose_sound = pygame.mixer.Sound("aww.wav")
+    # This while true loop blits the background to the screen and then takes away a turn if the player loses the game
     while True:
         for event in pygame.event.get():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
-        main_surface.fill(WHITE)
+        main_surface.blit(background, background_rect)
         for a in brick_group:
             main_surface.blit(a.image, a.rect)
         board.move()
@@ -86,6 +97,8 @@ def main():
         if cj.rect.bottom >= APPLICATION_HEIGHT:
             NUM_TURNS -= 1
         if NUM_TURNS == 0:
+            lose_sound.play()
+            pygame.time.delay(2000)
             pygame.quit()
             sys.exit()
         if len(brick_group) == 0:

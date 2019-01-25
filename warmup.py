@@ -17,7 +17,7 @@ HEIGHT = 25
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 group = pygame.sprite.Group()
-for x in range(10):
+for x in range(1):
     my_block = block.Block(main_window, WIDTH, HEIGHT, BLUE)
     group.add(my_block)
     my_block.rect.x = random.randint(WIDTH, WINDOW_WIDTH-WIDTH)
